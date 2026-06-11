@@ -1,0 +1,61 @@
+==============================================================================
+gradle-tasks.txt — captured during Phase 0 validation (2026-06-11)
+==============================================================================
+
+Command:   ./gradlew tasks --all
+Result:    BUILD FAILED (exit 1)
+
+Why it failed (expected): `./gradlew tasks --all` configures every Ghidra
+module, and configuration requires the dependency repo that is created by the
+dependency-fetch step. That step had NOT been run in this environment, so the
+build aborts early with:
+
+    Unable to find the local maven repo. Ensure you have created the flatRepo
+    directory or ghidra.repos.config file.
+
+To produce a real task list, run the dependency fetch first, then re-run:
+
+    ./gradlew -I gradle/support/fetchDependencies.gradle -DhideDownloadProgress -DnoEclipse
+    ./gradlew tasks --all > fork/docs/gradle-tasks.txt
+
+The dependency fetch was deliberately NOT run in Phase 0 (it downloads a large
+set of dependencies and was outside the scope of the requested Step 3). This
+file will be regenerated with the full task list once dependencies are fetched.
+
+Environment observed during configuration (before the failure):
+    Java:    21
+    Gradle:  9.4.1 (pinned by ./gradlew wrapper; satisfies application.gradle.min=8.5)
+    Python3: python3.13 (3.13, /usr/bin/python3.13), pip 24.0
+
+------------------------------------------------------------------------------
+Raw captured output:
+------------------------------------------------------------------------------
+Starting a Gradle Daemon (subsequent builds will be faster)
+
+> Configure project :
+Java: 21
+Gradle: 9.4.1
+Python3 command: [python3.13] (3.13, /usr/bin/python3.13)
+Python3 pip version: 24.0
+
+FAILURE: Build failed with an exception.
+
+* Where:
+Build file '/home/user/Reverse-Enginnering/build.gradle' line: 94
+
+* What went wrong:
+A problem occurred evaluating root project 'Reverse-Enginnering'.
+>
+
+
+	Unable to find the local maven repo.  Ensure you have created the flatRepo directory or ghidra.repos.config file.
+
+
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 8s
