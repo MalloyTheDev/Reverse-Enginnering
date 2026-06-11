@@ -1149,7 +1149,11 @@
       "GhidraDocs/GhidraClass/Debugger/ghidra_scripts/InstallCustomLibraryScript.java",
       "GhidraDocs/GhidraClass/Debugger/ghidra_scripts/InstallExprEmulatorScript.java",
       "GhidraDocs/GhidraClass/Debugger/ghidra_scripts/ModelingScript.java",
-      "GhidraDocs/GhidraClass/Debugger/ghidra_scripts/ZeroTimerScript.java"
+      "GhidraDocs/GhidraClass/Debugger/ghidra_scripts/ZeroTimerScript.java",
+      "fork/headless/ghidra_scripts/ForkExportFunctions.java",
+      "fork/headless/ghidra_scripts/ForkExportImports.java",
+      "fork/headless/ghidra_scripts/ForkExportStrings.java",
+      "fork/headless/ghidra_scripts/ForkTriageReport.java"
     ],
     "loaders": [
       "Ghidra/Debug/Debugger-importers/src/main/java/ghidra/app/util/opinion/TenetLoader.java",
@@ -1419,8 +1423,8 @@
   "errors": [],
   "meta": {
     "advisory": "Static heuristic scan. Counts are candidates, not authoritative. No Java was parsed or executed.",
-    "generated_utc": "2026-06-11T15:50:43Z",
-    "java_files_scanned": 15606,
+    "generated_utc": "2026-06-11T16:47:54Z",
+    "java_files_scanned": 15610,
     "repo_root": "/home/user/Reverse-Enginnering",
     "sleigh_files_scanned": 562,
     "tool": "tools/extension-inventory.py"
@@ -1629,7 +1633,8 @@
     "Ghidra/Processors/PIC/ghidra_scripts",
     "GhidraBuild/Skeleton/ghidra_scripts",
     "GhidraDocs/GhidraClass/AdvancedDevelopment/contrib/gadc/ghidra_scripts",
-    "GhidraDocs/GhidraClass/Debugger/ghidra_scripts"
+    "GhidraDocs/GhidraClass/Debugger/ghidra_scripts",
+    "fork/headless/ghidra_scripts"
   ],
   "sleigh": {
     "cspec": [
@@ -2209,11 +2214,11 @@
     "docking_actions": 359,
     "exporters": 11,
     "extension_points": 72,
-    "ghidra_scripts_java": 352,
+    "ghidra_scripts_java": 356,
     "loaders": 22,
     "plugins": 238,
     "python_scripts_in_trees": 25,
-    "script_dirs": 36,
+    "script_dirs": 37,
     "sleigh_cspec": 112,
     "sleigh_pspec": 90,
     "sleigh_sinc": 210,

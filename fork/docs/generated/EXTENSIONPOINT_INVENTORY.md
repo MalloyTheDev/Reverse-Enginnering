@@ -11,9 +11,9 @@
 > then confirm against the real source before relying on any specific
 > result.
 
-- **Generated (UTC):** 2026-06-11T15:50:43Z
+- **Generated (UTC):** 2026-06-11T16:47:54Z
 - **Repo root:** `/home/user/Reverse-Enginnering`
-- **Java files scanned:** 15606
+- **Java files scanned:** 15610
 - **Sleigh/processor files scanned:** 562
 - **Read errors:** 0
 
@@ -27,13 +27,13 @@
 | Exporters (Exporter / AbstractExporter) | 11 |
 | Component Providers (UI docking windows) | 262 |
 | Extension Points (implements/extends ExtensionPoint) | 72 |
-| GhidraScripts in Java (extends GhidraScript) | 352 |
+| GhidraScripts in Java (extends GhidraScript) | 356 |
 | Docking Actions (DockingAction subclasses / new) | 359 |
 | Sleigh `.slaspec` files | 150 |
 | Sleigh `.sinc` files | 210 |
 | Processor `.pspec` files | 90 |
 | Compiler `.cspec` files | 112 |
-| Script directories | 36 |
+| Script directories | 37 |
 | Python scripts in script trees | 25 |
 
 ## Module inventory
@@ -211,7 +211,7 @@ the JSON report when generated with `--json`.
 - `Ghidra/Features/Base/src/main/java/ghidra/app/util/bin/format/macho/relocation/MachoRelocationHandler.java`
 - … and 47 more (see JSON).
 
-### GhidraScripts in Java (extends GhidraScript) — 352
+### GhidraScripts in Java (extends GhidraScript) — 356
 
 - `Ghidra/Debug/Debugger-api/src/main/java/ghidra/debug/flatapi/FlatDebuggerAPI.java`
 - `Ghidra/Debug/Debugger-rmi-trace/ghidra_scripts/ConnectTraceRmiScript.java`
@@ -238,7 +238,7 @@ the JSON report when generated with `--json`.
 - `Ghidra/Features/BSim/ghidra_scripts/AddProgramToH2BSimDatabaseScript.java`
 - `Ghidra/Features/BSim/ghidra_scripts/CompareBSimSignaturesScript.java`
 - `Ghidra/Features/BSim/ghidra_scripts/CompareExecutablesScript.java`
-- … and 327 more (see JSON).
+- … and 331 more (see JSON).
 
 ### Docking Actions (DockingAction subclasses / new) — 359
 
@@ -392,7 +392,7 @@ These file counts indicate the size of that surface.
 
 ## Script trees
 
-**Script directories (36):**
+**Script directories (37):**
 
 - `Ghidra/Debug/Debugger-rmi-trace/ghidra_scripts`
 - `Ghidra/Debug/Debugger/ghidra_scripts`
@@ -419,7 +419,7 @@ These file counts indicate the size of that surface.
 - `Ghidra/Features/Swift/ghidra_scripts`
 - `Ghidra/Features/SystemEmulation/ghidra_scripts`
 - `Ghidra/Features/VersionTracking/developer_scripts`
-- … and 11 more (see JSON).
+- … and 12 more (see JSON).
 
 **Python scripts under script trees (25):** shown in JSON report.
 

@@ -75,6 +75,14 @@ Batch / scripted analysis built on `analyzeHeadless`.
 
 **Constraint:** scripts and headless wrappers; no core edits.
 
+**Status — MVP delivered** (`fork/phase3-headless`): shell wrappers under
+`scripts/headless/` (`common.sh`, `analyze-one.sh`, `analyze-folder.sh`,
+`export-triage.sh`) plus read-only fork GhidraScripts under
+`fork/headless/ghidra_scripts/` exporting `functions.csv`, `strings.csv`,
+`imports.csv`, and `triage.md`. `GHIDRA_INSTALL_DIR` is the clean path; wrappers fail
+cleanly otherwise. Runtime validation requires an installed Ghidra. See
+`fork/docs/HEADLESS.md` and `fork/docs/HEADLESS-RECIPES.md`.
+
 ---
 
 ## Phase 4 — First analyzer
