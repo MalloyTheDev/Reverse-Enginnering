@@ -56,6 +56,12 @@ A read-only-ish plugin that observes and records, without changing analysis resu
 
 **Constraint:** observation only; must not alter analysis behavior. Feature-flagged.
 
+**Status — MVP delivered** (`fork/phase2-diagnostics`): observation-only
+`ForkDiagnosticsPlugin` in the additive module `Ghidra/Extensions/ForkDiagnostics/`,
+feature-flagged (`GHIDRA_FORK_DIAGNOSTICS`), writing lifecycle events + JVM memory
+snapshots to local JSONL. Analyzer timing and decompiler timing are **deferred** (only
+via clean public hooks). See `fork/docs/DIAGNOSTICS.md`.
+
 ---
 
 ## Phase 3 — Headless automation

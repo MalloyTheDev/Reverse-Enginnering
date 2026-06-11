@@ -1219,6 +1219,7 @@
       "Ghidra/Debug/ProposedUtils/src/test/java/ghidra/framework/options/AutoOptionsTest.java",
       "Ghidra/Debug/ProposedUtils/src/test/java/ghidra/framework/plugintool/AutoServiceTest.java",
       "Ghidra/Extensions/BSimElasticPlugin/src/org/elasticsearch/plugin/analysis/lsh/AnalysisLSHPlugin.java",
+      "Ghidra/Extensions/ForkDiagnostics/src/main/java/ghidra/fork/diagnostics/ForkDiagnosticsPlugin.java",
       "Ghidra/Extensions/Jython/src/main/java/ghidra/jython/JythonPlugin.java",
       "Ghidra/Extensions/Lisa/src/main/java/ghidra/lisa/gui/LisaPlugin.java",
       "Ghidra/Extensions/MachineLearning/src/main/java/ghidra/machinelearning/functionfinding/RandomForestFunctionFinderPlugin.java",
@@ -1418,8 +1419,8 @@
   "errors": [],
   "meta": {
     "advisory": "Static heuristic scan. Counts are candidates, not authoritative. No Java was parsed or executed.",
-    "generated_utc": "2026-06-11T08:56:54Z",
-    "java_files_scanned": 15603,
+    "generated_utc": "2026-06-11T15:50:43Z",
+    "java_files_scanned": 15606,
     "repo_root": "/home/user/Reverse-Enginnering",
     "sleigh_files_scanned": 562,
     "tool": "tools/extension-inventory.py"
@@ -1451,6 +1452,7 @@
     ],
     "Ghidra/Extensions": [
       "BSimElasticPlugin",
+      "ForkDiagnostics",
       "Jython",
       "Lisa",
       "MachineLearning",
@@ -2209,7 +2211,7 @@
     "extension_points": 72,
     "ghidra_scripts_java": 352,
     "loaders": 22,
-    "plugins": 237,
+    "plugins": 238,
     "python_scripts_in_trees": 25,
     "script_dirs": 36,
     "sleigh_cspec": 112,

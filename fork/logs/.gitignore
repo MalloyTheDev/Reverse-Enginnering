@@ -1,0 +1,5 @@
+# Runtime-generated fork diagnostics logs (Phase 2). These are produced at runtime and
+# must NOT be committed. This .gitignore keeps the directory present while ignoring all
+# generated contents.
+*
+!.gitignore
