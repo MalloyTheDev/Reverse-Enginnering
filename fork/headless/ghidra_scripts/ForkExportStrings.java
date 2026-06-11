@@ -19,8 +19,8 @@
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 
 import ghidra.app.script.GhidraScript;
 import ghidra.program.model.listing.Data;
@@ -37,7 +37,7 @@ public class ForkExportStrings extends GhidraScript {
 
 		File outFile = new File(resolveOutDir(), "strings.csv");
 		int count = 0;
-		try (BufferedWriter w = new BufferedWriter(new FileWriter(outFile, StandardCharsets.UTF_8))) {
+		try (BufferedWriter w = Files.newBufferedWriter(outFile.toPath(), StandardCharsets.UTF_8)) {
 			w.write("address,length,value\n");
 
 			// Conservative: iterate already-defined data and emit those with string

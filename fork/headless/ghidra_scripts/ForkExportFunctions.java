@@ -19,8 +19,8 @@
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 
 import ghidra.app.script.GhidraScript;
 import ghidra.program.model.address.AddressSetView;
@@ -39,7 +39,7 @@ public class ForkExportFunctions extends GhidraScript {
 
 		File outFile = new File(resolveOutDir(), "functions.csv");
 		int count = 0;
-		try (BufferedWriter w = new BufferedWriter(new FileWriter(outFile, StandardCharsets.UTF_8))) {
+		try (BufferedWriter w = Files.newBufferedWriter(outFile.toPath(), StandardCharsets.UTF_8)) {
 			w.write("name,entry_point,min_address,max_address,size_bytes,param_count," +
 				"return_type,calling_convention,is_external,is_thunk\n");
 

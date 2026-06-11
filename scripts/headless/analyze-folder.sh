@@ -3,16 +3,15 @@
 # analyze-folder.sh — import and analyze a folder of binaries with Ghidra headless.
 #
 # Uses analyzeHeadless recursive import. Ghidra's loaders decide what is loadable;
-# unrecognized files are handled by Ghidra (this wrapper does not pre-filter, but
-# see -x to exclude obvious noise via an extra analyzeHeadless arg).
+# unrecognized files are handled by Ghidra. This wrapper does not pre-filter; to
+# refine what gets imported, pass extra analyzeHeadless args after --.
 #
 # Usage:
-#   analyze-folder.sh -i <folder> -p <project_dir> -n <project_name> [-r <report_dir>] [-d] [-- <extra analyzeHeadless args>]
+#   analyze-folder.sh -i <folder> -p <project_dir> -n <project_name> [-d] [-- <extra analyzeHeadless args>]
 #
 #   -i  input folder (required)
 #   -p  project directory (required)
 #   -n  project name (required)
-#   -r  report/output directory (optional; created if missing)
 #   -d  dry-run: print the command but do not execute
 #   -h  show this help
 #
@@ -22,15 +21,14 @@ set -euo pipefail
 # shellcheck source=scripts/headless/common.sh
 source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/common.sh"
 
-usage() { sed -n '2,20p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'; }
+usage() { awk 'NR>1 && /^#/ {sub(/^# ?/, ""); print; next} NR>1 {exit}' "${BASH_SOURCE[0]}"; }
 
-INPUT="" PROJECT_DIR="" PROJECT_NAME="" REPORT_DIR="" DRYRUN=0
-while getopts ":i:p:n:r:dh" opt; do
+INPUT="" PROJECT_DIR="" PROJECT_NAME="" DRYRUN=0
+while getopts ":i:p:n:dh" opt; do
 	case "${opt}" in
 		i) INPUT="${OPTARG}" ;;
 		p) PROJECT_DIR="${OPTARG}" ;;
 		n) PROJECT_NAME="${OPTARG}" ;;
-		r) REPORT_DIR="${OPTARG}" ;;
 		d) DRYRUN=1 ;;
 		h) usage; exit 0 ;;
 		:) die "Option -${OPTARG} requires an argument (try -h)." ;;
@@ -63,7 +61,6 @@ if (( DRYRUN )); then
 fi
 
 ensure_out_dir "${PROJECT_DIR}"
-[[ -n "${REPORT_DIR}" ]] && ensure_out_dir "${REPORT_DIR}"
 
 print_cmd "${cmd[@]}"
 "${cmd[@]}"

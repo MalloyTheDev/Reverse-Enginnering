@@ -6,12 +6,11 @@
 # runs auto-analysis. It does NOT delete projects by default.
 #
 # Usage:
-#   analyze-one.sh -i <binary> -p <project_dir> -n <project_name> [-r <report_dir>] [-- <extra analyzeHeadless args>]
+#   analyze-one.sh -i <binary> -p <project_dir> -n <project_name> [-- <extra analyzeHeadless args>]
 #
 #   -i  input binary (required)
 #   -p  project directory (required) — where the Ghidra project is created
 #   -n  project name (required)
-#   -r  report/output directory (optional; created if missing)
 #   -h  show this help
 #
 # Anything after the parsed options is passed straight through to analyzeHeadless,
@@ -21,15 +20,14 @@ set -euo pipefail
 # shellcheck source=scripts/headless/common.sh
 source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/common.sh"
 
-usage() { sed -n '2,20p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'; }
+usage() { awk 'NR>1 && /^#/ {sub(/^# ?/, ""); print; next} NR>1 {exit}' "${BASH_SOURCE[0]}"; }
 
-INPUT="" PROJECT_DIR="" PROJECT_NAME="" REPORT_DIR=""
-while getopts ":i:p:n:r:h" opt; do
+INPUT="" PROJECT_DIR="" PROJECT_NAME=""
+while getopts ":i:p:n:h" opt; do
 	case "${opt}" in
 		i) INPUT="${OPTARG}" ;;
 		p) PROJECT_DIR="${OPTARG}" ;;
 		n) PROJECT_NAME="${OPTARG}" ;;
-		r) REPORT_DIR="${OPTARG}" ;;
 		h) usage; exit 0 ;;
 		:) die "Option -${OPTARG} requires an argument (try -h)." ;;
 		\?) die "Unknown option -${OPTARG} (try -h)." ;;
@@ -45,7 +43,6 @@ EXTRA=( "$@" )  # any remaining args (typically after --) pass through to analyz
 find_analyze_headless
 require_input_file "${INPUT}"
 ensure_out_dir "${PROJECT_DIR}"
-[[ -n "${REPORT_DIR}" ]] && ensure_out_dir "${REPORT_DIR}"
 
 cmd=( "${ANALYZE_HEADLESS}" "${PROJECT_DIR}" "${PROJECT_NAME}" -import "${INPUT}" )
 if (( ${#EXTRA[@]} )); then

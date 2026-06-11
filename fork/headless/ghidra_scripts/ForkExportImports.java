@@ -20,8 +20,8 @@
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 
 import ghidra.app.script.GhidraScript;
 import ghidra.program.model.symbol.Namespace;
@@ -40,7 +40,7 @@ public class ForkExportImports extends GhidraScript {
 
 		File outFile = new File(resolveOutDir(), "imports.csv");
 		int count = 0;
-		try (BufferedWriter w = new BufferedWriter(new FileWriter(outFile, StandardCharsets.UTF_8))) {
+		try (BufferedWriter w = Files.newBufferedWriter(outFile.toPath(), StandardCharsets.UTF_8)) {
 			w.write("name,address,library\n");
 
 			SymbolTable st = currentProgram.getSymbolTable();

@@ -21,7 +21,7 @@ set -euo pipefail
 # shellcheck source=scripts/headless/common.sh
 source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/common.sh"
 
-usage() { sed -n '2,20p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'; }
+usage() { awk 'NR>1 && /^#/ {sub(/^# ?/, ""); print; next} NR>1 {exit}' "${BASH_SOURCE[0]}"; }
 
 INPUT="" PROJECT_DIR="" PROJECT_NAME="" REPORT_DIR=""
 while getopts ":i:p:n:r:h" opt; do
