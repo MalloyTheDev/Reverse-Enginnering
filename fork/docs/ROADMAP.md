@@ -96,6 +96,12 @@ A real analyzer, shipped as an extension, proving the analyzer path.
 
 **Constraint:** registered through the stock analyzer framework; additive module.
 
+**Status — MVP delivered** (`fork/phase4-entropy`): `BinaryEntropyAnalyzer` in the
+additive module `Ghidra/Extensions/ForkEntropy/`. Per-block Shannon entropy
+(dependency-free `ShannonEntropy`, unit-tested), flags high-entropy blocks with
+Analysis bookmarks + plate comments, logs to the MessageLog, and writes an optional
+CSV report. Disabled by default; additive annotations only. See `fork/docs/ENTROPY.md`.
+
 ---
 
 ## Phase 5 — Workflow UX plugins

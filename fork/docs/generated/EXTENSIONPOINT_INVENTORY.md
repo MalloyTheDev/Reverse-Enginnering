@@ -11,9 +11,9 @@
 > then confirm against the real source before relying on any specific
 > result.
 
-- **Generated (UTC):** 2026-06-11T16:47:54Z
+- **Generated (UTC):** 2026-06-12T04:07:16Z
 - **Repo root:** `/home/user/Reverse-Enginnering`
-- **Java files scanned:** 15610
+- **Java files scanned:** 15613
 - **Sleigh/processor files scanned:** 562
 - **Read errors:** 0
 
@@ -22,7 +22,7 @@
 | Category | Candidate count |
 | --- | ---: |
 | Plugins (Plugin / ProgramPlugin / @PluginInfo) | 238 |
-| Analyzers (AbstractAnalyzer / implements Analyzer) | 83 |
+| Analyzers (AbstractAnalyzer / implements Analyzer) | 84 |
 | Loaders (AbstractLibrarySupportLoader / implements Loader) | 22 |
 | Exporters (Exporter / AbstractExporter) | 11 |
 | Component Providers (UI docking windows) | 262 |
@@ -46,7 +46,7 @@ Immediate subdirectories of each top-level container (modules).
 | `Ghidra/Framework` | DB, Docking, Emulation, FileSystem, Generic, Graph, Gui, Help, Project, Pty, SoftwareModeling, Utility | 12 |
 | `Ghidra/Processors` | 6502, 68000, 8048, 8051, 8085, AARCH64, ARM, Atmel, BPF, CP1600, CR16, DATA, Dalvik, HCS08, HCS12, Hexagon, JVM, Loongarch, M16C, M8C, MC6800, MCS96, MIPS, NDS32, PA-RISC, PIC, PowerPC, RISCV, Sparc, SuperH, SuperH4, TI_MSP430, Toy, V850, Xtensa, Z80, eBPF, tricore, x86 | 39 |
 | `Ghidra/Debug` | AnnotationValidator, Debugger, Debugger-agent-dbgeng, Debugger-agent-drgn, Debugger-agent-gdb, Debugger-agent-lldb, Debugger-agent-x64dbg, Debugger-api, Debugger-importers, Debugger-isf, Debugger-jpda, Debugger-rmi-trace, Framework-TraceModeling, ProposedUtils, TaintAnalysis | 15 |
-| `Ghidra/Extensions` | BSimElasticPlugin, ForkDiagnostics, Jython, Lisa, MachineLearning, SampleTablePlugin, SleighDevTools, SymbolicSummaryZ3, bundle_examples, sample | 10 |
+| `Ghidra/Extensions` | BSimElasticPlugin, ForkDiagnostics, ForkEntropy, Jython, Lisa, MachineLearning, SampleTablePlugin, SleighDevTools, SymbolicSummaryZ3, bundle_examples, sample | 11 |
 | `GPL` | DMG, DemanglerGnu, GnuDisassembler, Icons, licenses | 5 |
 | `GhidraBuild` | BuildFiles, EclipsePlugins, IDAPro, LaunchSupport, MarkdownSupport, Skeleton, patch | 7 |
 | `support` | _(absent)_ | 0 |
@@ -85,8 +85,9 @@ the JSON report when generated with `--json`.
 - `Ghidra/Debug/Debugger/src/main/java/ghidra/app/plugin/core/debug/gui/stack/DebuggerStackPlugin.java`
 - … and 213 more (see JSON).
 
-### Analyzers (AbstractAnalyzer / implements Analyzer) — 83
+### Analyzers (AbstractAnalyzer / implements Analyzer) — 84
 
+- `Ghidra/Extensions/ForkEntropy/src/main/java/ghidra/fork/entropy/BinaryEntropyAnalyzer.java`
 - `Ghidra/Features/Base/src/main/java/ghidra/app/analyzers/AbstractBinaryFormatAnalyzer.java`
 - `Ghidra/Features/Base/src/main/java/ghidra/app/analyzers/AppleSingleDoubleAnalyzer.java`
 - `Ghidra/Features/Base/src/main/java/ghidra/app/analyzers/CoffAnalyzer.java`
@@ -111,8 +112,7 @@ the JSON report when generated with `--json`.
 - `Ghidra/Features/Base/src/main/java/ghidra/app/plugin/core/analysis/MingwRelocationAnalyzer.java`
 - `Ghidra/Features/Base/src/main/java/ghidra/app/plugin/core/analysis/NoReturnFunctionAnalyzer.java`
 - `Ghidra/Features/Base/src/main/java/ghidra/app/plugin/core/analysis/OperandReferenceAnalyzer.java`
-- `Ghidra/Features/Base/src/main/java/ghidra/app/plugin/core/analysis/PefAnalyzer.java`
-- … and 58 more (see JSON).
+- … and 59 more (see JSON).
 
 ### Loaders (AbstractLibrarySupportLoader / implements Loader) — 22
 
