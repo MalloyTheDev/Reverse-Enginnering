@@ -15,6 +15,8 @@
  */
 package ghidra.fork.entropy;
 
+import java.util.Objects;
+
 /**
  * Shannon entropy calculation in bits per byte (range 0.0 .. 8.0).
  *
@@ -64,15 +66,22 @@ public final class ShannonEntropy {
 	/**
 	 * Compute Shannon entropy over a byte range.
 	 *
+	 * <p>Treats {@code null} data or non-positive {@code len} as empty (returns 0.0). For a
+	 * positive {@code len}, the range {@code [off, off + len)} must lie within {@code data};
+	 * an out-of-range request is a programming error and fails fast.
+	 *
 	 * @param data the bytes
 	 * @param off  start offset
 	 * @param len  number of bytes
-	 * @return entropy in bits/byte, or 0.0 if len &lt;= 0
+	 * @return entropy in bits/byte, or 0.0 if data is null or len &lt;= 0
+	 * @throws IndexOutOfBoundsException if {@code len > 0} and {@code [off, off + len)} is not a
+	 *             valid range within {@code data}
 	 */
 	public static double ofBytes(byte[] data, int off, int len) {
 		if (data == null || len <= 0) {
 			return 0.0;
 		}
+		Objects.checkFromIndexSize(off, len, data.length);
 		long[] counts = new long[256];
 		int end = off + len;
 		for (int i = off; i < end; i++) {

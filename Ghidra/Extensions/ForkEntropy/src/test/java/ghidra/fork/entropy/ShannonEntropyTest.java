@@ -58,7 +58,18 @@ public class ShannonEntropyTest {
 	@Test
 	public void offsetAndLengthAreRespected() {
 		byte[] data = { 0, 0, 1, 1 };
-		assertEquals(0.0, ShannonEntropy.ofBytes(data, 0, 2), EPS); // all zeros
-		assertEquals(1.0, ShannonEntropy.ofBytes(data, 0, 4), EPS); // 50/50
+		assertEquals(0.0, ShannonEntropy.ofBytes(data, 0, 2), EPS); // {0,0} -> identical
+		assertEquals(1.0, ShannonEntropy.ofBytes(data, 0, 4), EPS); // {0,0,1,1} -> 50/50
+		assertEquals(0.0, ShannonEntropy.ofBytes(data, 2, 2), EPS); // {1,1} -> identical
+	}
+
+	@Test(expected = IndexOutOfBoundsException.class)
+	public void rangeBeyondArrayThrows() {
+		ShannonEntropy.ofBytes(new byte[4], 2, 4); // [2,6) exceeds length 4
+	}
+
+	@Test(expected = IndexOutOfBoundsException.class)
+	public void negativeOffsetThrows() {
+		ShannonEntropy.ofBytes(new byte[4], -1, 2);
 	}
 }
