@@ -117,6 +117,17 @@ Quality-of-life features for day-to-day RE work.
 **Constraint:** UI lives in plugins/docking actions; default behavior stays stock.
 (UI features are explicitly deferred until earlier phases are approved.)
 
+**Direction:** the MalloyRE design system informs the look/UX; it is translated into
+Ghidra-native Plugins/ComponentProviders/DockingActions/Theme, never vendored as web code.
+Sub-phases (safest first): **5A** theme + Entropy Findings view · 5B diagnostics viewer ·
+5C report viewer · 5D status surfaces · 5E command palette · 5F optional workspace layout.
+See `fork/docs/PHASE5.md`.
+
+**Status — 5A in progress** (`fork/phase5a-entropy-view`): additive module
+`Ghidra/Extensions/ForkWorkflowUX/` with a read-only, dockable **Entropy Findings** view over the
+Phase-4 Binary Entropy bookmarks (entropy heat-scale rendering, navigation, scoped fork `GColor`
+ids). Read-only; no core edits.
+
 ---
 
 ## Phase 6 — Optional local AI tooling
