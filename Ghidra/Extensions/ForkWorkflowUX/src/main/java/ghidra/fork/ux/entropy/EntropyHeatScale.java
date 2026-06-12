@@ -15,6 +15,7 @@
  */
 package ghidra.fork.ux.entropy;
 
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -95,7 +96,7 @@ public final class EntropyHeatScale {
 		if (bits == null || bits.isNaN()) {
 			return "—";
 		}
-		return String.format("%.2f", bits);
+		return String.format(Locale.ROOT, "%.2f", bits);
 	}
 
 	private static double toDouble(String s) {

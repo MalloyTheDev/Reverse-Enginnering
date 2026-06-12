@@ -68,7 +68,7 @@ The first, safest slice: a read-only dockable table over the Phase-4 "Binary Ent
 - `EntropyHeatScale` unit tests (bucket/parse/format) — dependency-free.
 - `:ForkWorkflowUX:compileJava`, `:ForkWorkflowUX:test`, `:ForkWorkflowUX:ip` (IP/certification).
 - Regenerate the extension-point inventory (plugins +1).
-- GUI behavior (table populates, heat renders, navigation) is verified by a manual smoke in a
+- GUI behavior (table populates, heat renders, navigation) is verified by a manual smoke test in a
   built Ghidra, since Swing providers are not fully headless-testable.
 
 ### Branch
