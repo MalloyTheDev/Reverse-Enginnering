@@ -72,4 +72,15 @@ public class ShannonEntropyTest {
 	public void negativeOffsetThrows() {
 		ShannonEntropy.ofBytes(new byte[4], -1, 2);
 	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void wrongHistogramLengthWithSamplesThrows() {
+		ShannonEntropy.ofHistogram(new long[128], 10); // not 256 bins, but total > 0
+	}
+
+	@Test
+	public void wrongHistogramLengthWithZeroTotalIsZero() {
+		// the empty/zero-total fast path wins before the length check
+		assertEquals(0.0, ShannonEntropy.ofHistogram(new long[10], 0), EPS);
+	}
 }

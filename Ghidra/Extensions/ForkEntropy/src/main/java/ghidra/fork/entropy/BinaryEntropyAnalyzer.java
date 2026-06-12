@@ -18,6 +18,7 @@ package ghidra.fork.entropy;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -124,7 +125,7 @@ public class BinaryEntropyAnalyzer extends AbstractAnalyzer {
 				continue;
 			}
 
-			double entropy = computeBlockEntropy(block, monitor);
+			double entropy = computeBlockEntropy(block, monitor, log);
 			boolean high = entropy >= threshold;
 
 			log.appendMsg(NAME, String.format("block '%s' @ %s size %d entropy %.3f%s",
@@ -147,7 +148,7 @@ public class BinaryEntropyAnalyzer extends AbstractAnalyzer {
 	}
 
 	/** Read the block's bytes in chunks and compute entropy over a byte-value histogram. */
-	private double computeBlockEntropy(MemoryBlock block, TaskMonitor monitor)
+	private double computeBlockEntropy(MemoryBlock block, TaskMonitor monitor, MessageLog log)
 			throws CancelledException {
 		long[] counts = new long[256];
 		long total = 0;
@@ -164,9 +165,20 @@ public class BinaryEntropyAnalyzer extends AbstractAnalyzer {
 				read = block.getBytes(start.add(offset), buf, 0, toRead);
 			}
 			catch (MemoryAccessException e) {
-				break; // unreadable region; stop scanning this block
+				// unreadable region: stop scanning, but warn so partial results are interpretable
+				log.appendMsg(NAME, String.format(
+					"WARNING: block '%s' unreadable at offset %d of %d; entropy computed on the " +
+						"first %d byte(s) only",
+					block.getName(), offset, size, total));
+				break;
 			}
 			if (read <= 0) {
+				if (offset < size) {
+					log.appendMsg(NAME, String.format(
+						"WARNING: block '%s' returned no bytes at offset %d of %d; entropy computed " +
+							"on the first %d byte(s) only",
+						block.getName(), offset, size, total));
+				}
 				break;
 			}
 			for (int i = 0; i < read; i++) {
@@ -201,7 +213,12 @@ public class BinaryEntropyAnalyzer extends AbstractAnalyzer {
 
 	private void writeReport(String path, List<String> rows, MessageLog log) {
 		try {
-			Files.write(Paths.get(path), rows, StandardCharsets.UTF_8);
+			Path out = Paths.get(path);
+			Path parent = out.getParent();
+			if (parent != null) {
+				Files.createDirectories(parent);
+			}
+			Files.write(out, rows, StandardCharsets.UTF_8);
 			log.appendMsg(NAME, "wrote entropy report: " + path);
 		}
 		catch (IOException e) {

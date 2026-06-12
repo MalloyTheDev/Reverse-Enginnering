@@ -37,6 +37,9 @@ public final class ShannonEntropy {
 
 	private static final double LOG2 = Math.log(2.0);
 
+	/** Required length of a byte-value histogram: one bin per unsigned byte value. */
+	private static final int HISTOGRAM_SIZE = 256;
+
 	private ShannonEntropy() {
 		// utility class
 	}
@@ -44,13 +47,22 @@ public final class ShannonEntropy {
 	/**
 	 * Compute Shannon entropy from a 256-element byte-value histogram.
 	 *
+	 * <p>A {@code null} histogram or non-positive {@code total} is treated as empty (returns
+	 * 0.0). Otherwise {@code counts} must have exactly {@value #HISTOGRAM_SIZE} bins; a
+	 * different length is a programming error and fails fast.
+	 *
 	 * @param counts histogram indexed by unsigned byte value (length 256)
 	 * @param total  total number of samples (sum of counts)
-	 * @return entropy in bits/byte, or 0.0 if total &lt;= 0
+	 * @return entropy in bits/byte, or 0.0 if counts is null or total &lt;= 0
+	 * @throws IllegalArgumentException if {@code total > 0} and {@code counts.length != 256}
 	 */
 	public static double ofHistogram(long[] counts, long total) {
 		if (counts == null || total <= 0) {
 			return 0.0;
+		}
+		if (counts.length != HISTOGRAM_SIZE) {
+			throw new IllegalArgumentException(
+				"counts histogram must have length " + HISTOGRAM_SIZE + " (got " + counts.length + ")");
 		}
 		double entropy = 0.0;
 		for (long c : counts) {
@@ -82,7 +94,7 @@ public final class ShannonEntropy {
 			return 0.0;
 		}
 		Objects.checkFromIndexSize(off, len, data.length);
-		long[] counts = new long[256];
+		long[] counts = new long[HISTOGRAM_SIZE];
 		int end = off + len;
 		for (int i = off; i < end; i++) {
 			counts[data[i] & 0xFF]++;
