@@ -1,0 +1,93 @@
+/* ###
+ * IP: GHIDRA
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package ghidra.fork.entropy;
+
+/**
+ * Shannon entropy calculation in bits per byte (range 0.0 .. 8.0).
+ *
+ * <p>Deliberately <b>free of any Ghidra dependency</b> so it can be compiled and
+ * unit-tested in isolation. {@link BinaryEntropyAnalyzer} feeds it bytes read from
+ * memory blocks.
+ *
+ * <ul>
+ *   <li>A block of identical bytes has entropy 0.0.</li>
+ *   <li>A uniform distribution over all 256 byte values has entropy 8.0 (the max).</li>
+ *   <li>High entropy (~7.5+) often indicates packed, compressed, or encrypted data.</li>
+ * </ul>
+ */
+public final class ShannonEntropy {
+
+	/** Maximum possible entropy for byte data, in bits per byte. */
+	public static final double MAX_BITS_PER_BYTE = 8.0;
+
+	private static final double LOG2 = Math.log(2.0);
+
+	private ShannonEntropy() {
+		// utility class
+	}
+
+	/**
+	 * Compute Shannon entropy from a 256-element byte-value histogram.
+	 *
+	 * @param counts histogram indexed by unsigned byte value (length 256)
+	 * @param total  total number of samples (sum of counts)
+	 * @return entropy in bits/byte, or 0.0 if total &lt;= 0
+	 */
+	public static double ofHistogram(long[] counts, long total) {
+		if (counts == null || total <= 0) {
+			return 0.0;
+		}
+		double entropy = 0.0;
+		for (long c : counts) {
+			if (c <= 0) {
+				continue;
+			}
+			double p = (double) c / total;
+			entropy -= p * (Math.log(p) / LOG2);
+		}
+		return entropy;
+	}
+
+	/**
+	 * Compute Shannon entropy over a byte range.
+	 *
+	 * @param data the bytes
+	 * @param off  start offset
+	 * @param len  number of bytes
+	 * @return entropy in bits/byte, or 0.0 if len &lt;= 0
+	 */
+	public static double ofBytes(byte[] data, int off, int len) {
+		if (data == null || len <= 0) {
+			return 0.0;
+		}
+		long[] counts = new long[256];
+		int end = off + len;
+		for (int i = off; i < end; i++) {
+			counts[data[i] & 0xFF]++;
+		}
+		return ofHistogram(counts, len);
+	}
+
+	/**
+	 * Compute Shannon entropy over an entire byte array.
+	 *
+	 * @param data the bytes
+	 * @return entropy in bits/byte
+	 */
+	public static double ofBytes(byte[] data) {
+		return (data == null) ? 0.0 : ofBytes(data, 0, data.length);
+	}
+}

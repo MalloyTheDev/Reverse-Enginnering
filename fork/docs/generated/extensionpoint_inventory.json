@@ -1,6 +1,7 @@
 {
   "categories": {
     "analyzers": [
+      "Ghidra/Extensions/ForkEntropy/src/main/java/ghidra/fork/entropy/BinaryEntropyAnalyzer.java",
       "Ghidra/Features/Base/src/main/java/ghidra/app/analyzers/AbstractBinaryFormatAnalyzer.java",
       "Ghidra/Features/Base/src/main/java/ghidra/app/analyzers/AppleSingleDoubleAnalyzer.java",
       "Ghidra/Features/Base/src/main/java/ghidra/app/analyzers/CoffAnalyzer.java",
@@ -1423,8 +1424,8 @@
   "errors": [],
   "meta": {
     "advisory": "Static heuristic scan. Counts are candidates, not authoritative. No Java was parsed or executed.",
-    "generated_utc": "2026-06-11T16:47:54Z",
-    "java_files_scanned": 15610,
+    "generated_utc": "2026-06-12T04:07:16Z",
+    "java_files_scanned": 15613,
     "repo_root": "/home/user/Reverse-Enginnering",
     "sleigh_files_scanned": 562,
     "tool": "tools/extension-inventory.py"
@@ -1457,6 +1458,7 @@
     "Ghidra/Extensions": [
       "BSimElasticPlugin",
       "ForkDiagnostics",
+      "ForkEntropy",
       "Jython",
       "Lisa",
       "MachineLearning",
@@ -2209,7 +2211,7 @@
     ]
   },
   "totals": {
-    "analyzers": 83,
+    "analyzers": 84,
     "component_providers": 262,
     "docking_actions": 359,
     "exporters": 11,
